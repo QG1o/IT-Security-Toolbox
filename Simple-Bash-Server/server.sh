@@ -15,6 +15,6 @@ elif [ "$PROTO" == "udp" ]; then
   echo "Beeep Beeep bitte kommen $PORT..."
   nc -luvnp $PORT
 else
-  echo "Protocol must be 'tcp' or 'udp'"
+  echo "Oooo... Error!"
   exit 1
 fi
