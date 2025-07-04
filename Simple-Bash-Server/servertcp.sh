@@ -1,6 +1,7 @@
 #!/bin/bash
 
-PORT=12345
+read -p "POOORRTT!!: " PORT
+PORT=${PORT:-12345}
 
 while true; do
   echo "Beeep Beeep bitte kommen $PORT..."
