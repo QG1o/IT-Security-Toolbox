@@ -1,20 +1,30 @@
 #!/bin/bash
 
-if [ "$#" -ne 2 ]; then
-  echo "Usage: $0 <tcp|udp> <port>"
-  exit 1
+# Fragt nach Protokoll (tcp/udp)
+read -p "PROTOKOLL HER!: " PROTO
+PROTO=${PROTO,,}
+
+# Wenn keine Eingabe/ungültig dann TCP
+if [[ "$PROTO" != "tcp" && "$PROTO" != "udp" ]]; then
+  echo "FALSCHER PORT!!!! TCP wird verwendet!"
+  PROTO="tcp"
 fi
 
-PROTO=$1
-PORT=$2
+# Frage nach Port
+read -p "PORT HER!: " PORT
 
-if [ "$PROTO" == "tcp" ]; then
-  echo "Beeep Beeep bitte kommen $PORT..."
-  nc -lvnp $PORT
-elif [ "$PROTO" == "udp" ]; then
-  echo "Beeep Beeep bitte kommen $PORT..."
-  nc -luvnp $PORT
-else
-  echo "Oooo... Error!"
-  exit 1
+# Wenn kein Port angegeben wurde, Standard 12345
+if [ -z "$PORT" ]; then
+  echo "KEIN PORT ANGEGEBEN!!! Standardport 12345 wird verwendet."
+  PORT=12345
 fi
+
+while true; do
+  echo "Beeep Beeep bitte kommen $PORT... (Protokoll: $PROTO)"
+  
+  if [ "$PROTO" = "udp" ]; then
+    nc -ulvnp $PORT
+  else
+    nc -lvnp $PORT
+  fi
+done
