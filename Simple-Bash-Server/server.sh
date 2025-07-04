@@ -6,7 +6,7 @@ PROTO=${PROTO,,}
 
 # Wenn keine Eingabe/ungültig dann TCP
 if [[ "$PROTO" != "tcp" && "$PROTO" != "udp" ]]; then
-  echo "FALSCHER PORT!!!! TCP wird verwendet!"
+  echo "KEIN PROTOKOLL!!!! TCP wird verwendet!"
   PROTO="tcp"
 fi
 
@@ -23,8 +23,8 @@ while true; do
   echo "Beeep Beeep bitte kommen $PORT... (Protokoll: $PROTO)"
   
   if [ "$PROTO" = "udp" ]; then
-    nc -ulvnp $PORT
+    nc -ulvn $PORT
   else
-    nc -lvnp $PORT
+    nc -lvn $PORT
   fi
 done
